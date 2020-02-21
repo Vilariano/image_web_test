@@ -6,7 +6,7 @@ Docker for [Capybara](https://github.com/teamcapybara/capybara)/[Cucumber](https
 
 # CI/CD Configuration
 
-Exemplo de configuração de CI do GitLab para o projeto Ruby usando imagem (http://git.cvc.com.br/help/ci/environments):
+Exemplo de configuração de CI do GitLab para o projeto Ruby usando imagem (https://gitlab.com/help/ci/environments):
 
 ```yaml
 image: 'vilariano128/image_web_test'
