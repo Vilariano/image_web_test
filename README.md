@@ -42,4 +42,4 @@ deploy:
 
 This repo content is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
-Copyright (c) 2017-2018 Nikita Bulai (agnaldo.s.vilariano@gmail.com).
+Copyright (c) 2020 [Agnaldo Vilariano](https://vilariano.gitlab.io/html-page-naldo/) (agnaldo.s.vilariano@gmail.com).
