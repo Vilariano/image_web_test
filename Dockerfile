@@ -1,6 +1,6 @@
-FROM ruby:2.6.2
+FROM ruby:2.6
 
-MAINTAINER Nikita Bulai <bulaj.nikita@gmail.com>
+MAINTAINER Agnaldo Vilariano <agnaldo.s.vilariano@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
