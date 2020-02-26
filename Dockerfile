@@ -1,4 +1,4 @@
-FROM ruby:2.6.2-alpine
+FROM ruby:2.6.2
 
 MAINTAINER Agnaldo Vilariano <aejvilariano128@gmail.com>
 
