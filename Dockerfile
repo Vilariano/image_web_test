@@ -6,6 +6,18 @@ MAINTAINER Agnaldo Vilariano <aejvilariano128@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN gem install bundler
+RUN gem install cucumber
+RUN gem install rspec
+RUN gem install capybara
+RUN gem install selenium-webdriver
+RUN gem install httparty
+RUN gem install site_prism
+RUN gem install json
+RUN gem install faker
+RUN gem install yaml
+RUN gem install report_builder
+
 # Install dependencies
 RUN apt-get update && apt-get -y install wget xvfb unzip libgconf2-4 libnss3 nodejs
 
