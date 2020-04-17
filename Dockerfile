@@ -6,6 +6,8 @@ MAINTAINER Agnaldo Vilariano <aejvilariano128@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN gem install bundler
+
 # Install dependencies
 RUN apt-get update && apt-get -y install wget xvfb unzip libgconf2-4 libnss3 nodejs
 
