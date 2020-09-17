@@ -5,6 +5,7 @@ FROM ruby:2.6.2
 MAINTAINER Agnaldo Vilariano <aejvilariano128@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV CHROME_DRIVER_VERSION 85.0.4183.87
 
 RUN gem install bundler
 
@@ -17,9 +18,15 @@ RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/so
 
 RUN apt-get update && apt-get -y install google-chrome-stable
 
-# install chromedriver com versão sempre LATEST_RELEASE
-RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip \
+# # install chromedriver com versão sempre LATEST_RELEASE
+# RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip \
+#     && unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/ \
+#     && chmod ugo+rx /usr/bin/chromedriver
+
+# Install Chrome driver
+RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
     && unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/ \
+    && rm /tmp/chromedriver.zip \
     && chmod ugo+rx /usr/bin/chromedriver
 
 ADD docker-entrypoint.sh /
