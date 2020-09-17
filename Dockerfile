@@ -26,7 +26,7 @@
 # ENTRYPOINT ["/docker-entrypoint.sh"]
 
 ###teste###
-ARG RUBY_VERSION=2.6.6
+ARG RUBY_VERSION=2.6.2
 FROM ruby:${RUBY_VERSION}
 
 MAINTAINER Agnaldo Vilariano <aejvilariano128@gmail.com>
