@@ -1,5 +1,5 @@
 # Install ruby 
-FROM ruby:2.6.2
+FROM ruby:3.0.2
 
 # MAINTAINER name and e-mail address
 MAINTAINER Agnaldo Vilariano <aejvilariano128@gmail.com>
