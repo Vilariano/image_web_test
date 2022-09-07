@@ -5,7 +5,7 @@ FROM ruby:3.0.2
 MAINTAINER Agnaldo Vilariano <aejvilariano128@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV CHROME_DRIVER_VERSION 85.0.4183.87
+ENV CHROME_DRIVER_VERSION 105.0.5195.52
 
 RUN gem install bundler
 
