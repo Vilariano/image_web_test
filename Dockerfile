@@ -1,36 +1,58 @@
-# Use imagem base com Python
 FROM python:3.10-slim
 
-# MAINTAINER name and e-mail address
 LABEL maintainer="Agnaldo Vilariano <aejvilariano128@gmail.com>"
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV CHROME_DRIVER_VERSION=105.0.5195.52
 
-# Atualiza pacotes e instala dependências
+# Instala dependências
 RUN apt-get update && apt-get install -y \
     wget \
-    xvfb \
+    curl \
+    gnupg \
     unzip \
+    xvfb \
     libgconf-2-4 \
     libnss3 \
     nodejs \
-    curl \
-    gnupg \
+    software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
-# Instala o Google Chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
-    apt-get update && apt-get install -y google-chrome-stable
-# Instala o ChromeDriver
-RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip && \
-    unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/ && \
-    rm /tmp/chromedriver.zip && \
-    chmod ugo+rx /usr/bin/chromedriver
-# Instala pip e outras dependências Python se necessário
+# -------------------------------
+# Instala Google Chrome (Dev)
+# -------------------------------
+RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ unstable main" > /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get update && apt-get install -y google-chrome-unstable
+
+# Instala ChromeDriver compatível com a versão do Chrome Dev
+RUN CHROME_VERSION=$(google-chrome-unstable --version | awk '{print $3}') && \
+    CHROMEDRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" | \
+    python3 -c "import sys, json; print(json.load(sys.stdin)['channels']['Dev']['version'])") && \
+    wget -O /tmp/chromedriver.zip "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${CHROMEDRIVER_VERSION}/linux64/chromedriver-linux64.zip" && \
+    unzip /tmp/chromedriver.zip -d /usr/bin/ && \
+    mv /usr/bin/chromedriver-linux64/chromedriver /usr/bin/chromedriver && \
+    chmod +x /usr/bin/chromedriver && \
+    rm -rf /tmp/chromedriver.zip /usr/bin/chromedriver-linux64
+
+# -------------------------------
+# Instala Microsoft Edge (Dev)
+# -------------------------------
+RUN curl -sSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg && \
+    install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/ && \
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge dev main" > /etc/apt/sources.list.d/microsoft-edge-dev.list && \
+    apt-get update && apt-get install -y microsoft-edge-dev && \
+    rm microsoft.gpg
+
+# Instala msedgedriver compatível com a versão do Edge Dev
+RUN EDGE_VERSION=$(microsoft-edge-dev --version | awk '{print $3}') && \
+    wget -O /tmp/msedgedriver.zip "https://msedgedriver.azureedge.net/${EDGE_VERSION}/edgedriver_linux64.zip" && \
+    unzip /tmp/msedgedriver.zip -d /usr/bin/ && \
+    chmod +x /usr/bin/msedgedriver && \
+    rm /tmp/msedgedriver.zip
+
+# Atualiza pip
 RUN pip install --upgrade pip
 
-# Adiciona o script de entrada
+# Adiciona script de entrada
 ADD docker-entrypoint.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYdocker-entrypoint.sh"]
