@@ -55,4 +55,4 @@ RUN pip install --upgrade pip
 
 # Adiciona script de entrada
 ADD docker-entrypoint.sh /
-ENTRYdocker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
