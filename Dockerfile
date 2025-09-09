@@ -10,7 +10,7 @@ ENV CHROME_DRIVER_VERSION 105.0.5195.52
 RUN gem install bundler
 
 # Install dependencies
-RUN apt-get update && apt-get -y install wget xvfb unzip libgconf2-4 libnss3 nodejs
+RUN apt-get update && apt-get -y install wget xvfb unzip libgconf2-4 libnss3 nodejs python3-pip
 
 # Install Chrome
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
